@@ -1,2 +1,1 @@
-# HEADER test
-sub TEST
+this is just a webpage with a chatbox in it and some standard login status stuff

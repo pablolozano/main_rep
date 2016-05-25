@@ -1,7 +1,7 @@
 <html>
   <head>
 <?php
-include('function.php');
+require('function.php');
 if(isset($_POST['entrar'])){
   $idConn = mysqli_connect('localhost','root','');
   $byPassIpLog = false;
@@ -13,7 +13,7 @@ if(isset($_POST['entrar'])){
   }
   else{
     $bd = mysqli_select_db($idConn,'tesis');
-  	$query = 'SELECT UNIX_TIMESTAMP(fecha) as time FROM login_status WHERE ipAdd = "'.$ipAdd.'" ORDER BY UNIX_TIMESTAMP(fecha) DESC LIMIT 10';
+    $query = 'SELECT UNIX_TIMESTAMP(fecha) as time FROM login_status WHERE ipAdd = "'.$ipAdd.'" ORDER BY UNIX_TIMESTAMP(fecha) DESC LIMIT 10';
     $res = mysqli_query($idConn,$query);
     $rs = mysqli_fetch_array($res);
     print_r($rs.'second');
@@ -57,10 +57,11 @@ if(isset($_POST['entrar'])){
     		/*---success check like ip and stuff---*/
     		//saveIp('goodPass',$username,$ipAdd);
         $query = 'DELETE FROM login_status where username = "'.$username.'"';
-  			mysqli_query($idConn,$query);
+  		mysqli_query($idConn,$query);
     		session_start();
     		$_SESSION['username'] = $username;
     		$_SESSION['ip'] = $ipAdd;
+                updateCurrentUser($username);
     		header('Location: http://localhost/thesis/home.php');
   	  }
   	}
