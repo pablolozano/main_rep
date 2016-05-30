@@ -1,7 +1,7 @@
 <?php
       require('main_header.php');
       require('session_check.php');
-      require('functions.php');
+      require('function.php');
 ?>
   <body>
     <!-- Navbar -->
@@ -9,8 +9,8 @@
       <li class="w3-opennav w3-right w3-hide-large">
         <a class="w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
       </li>
-      <li><a href="#" class="w3-theme-l1">Logo</a></li>
-      <li><a href="http://localhost/thesis/logout.php" class="w3-hover-white">Logout</a></li>
+      <li><a href="http://<?php echo $host.$uri ?>/system_log.php"" class="w3-theme-l1">System Log</a></li>
+      <li><a href="http://<?php echo $host.$uri ?>/logout.php" class="w3-hover-white">Logout</a></li>
     </ul>
 
     <!-- Sidenav -->
@@ -104,10 +104,6 @@
       <footer id="myFooter">
         <div class="w3-container w3-theme-l2 w3-padding-32">
           <h4>Footer</h4>
-        </div>
-
-        <div class="w3-container w3-theme-l1">
-          <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
         </div>
       </footer>
     <!-- END MAIN -->

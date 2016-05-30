@@ -1,41 +1,55 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 3.5.2
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 23-05-2016 a las 23:27:31
--- Versión del servidor: 5.6.26
--- Versión de PHP: 5.6.12
+-- Host: localhost
+-- Generation Time: May 30, 2016 at 08:47 PM
+-- Server version: 5.5.25a
+-- PHP Version: 5.4.4
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `tesis`
+-- Database: `tesis`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `login_status`
+-- Table structure for table `login_session`
+--
+
+CREATE TABLE IF NOT EXISTS `login_session` (
+  `username` varchar(60) NOT NULL,
+  `status` varchar(6) NOT NULL DEFAULT 'OFF',
+  `ipAdd` varchar(60) NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_status`
 --
 
 CREATE TABLE IF NOT EXISTS `login_status` (
-  `id` mediumint(9) NOT NULL,
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `username` varchar(60) NOT NULL,
   `ipAdd` varchar(45) NOT NULL,
   `fecha` datetime NOT NULL,
-  `type` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `type` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Volcado de datos para la tabla `login_status`
+-- Dumping data for table `login_status`
 --
 
 INSERT INTO `login_status` (`id`, `username`, `ipAdd`, `fecha`, `type`) VALUES
@@ -44,46 +58,22 @@ INSERT INTO `login_status` (`id`, `username`, `ipAdd`, `fecha`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Table structure for table `usuarios`
 --
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL
+  `password` varchar(20) NOT NULL,
+  PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Dumping data for table `usuarios`
 --
 
 INSERT INTO `usuarios` (`username`, `password`) VALUES
 ('admin', 'root');
 
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `login_status`
---
-ALTER TABLE `login_status`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`username`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `login_status`
---
-ALTER TABLE `login_status`
-  MODIFY `id` mediumint(9) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

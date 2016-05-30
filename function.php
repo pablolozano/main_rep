@@ -1,10 +1,8 @@
 <?php
 
-/*function checkBypass(){
-	$byPassIpLog = false;
-}*/
-
 $byPassIpLog = false;
+$host  = $_SERVER['HTTP_HOST'];
+$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 $idConn = mysqli_connect('localhost','root','');
 function getClientIp(){
 	if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)){
@@ -70,6 +68,10 @@ function updateCurrentUser($usrN){
             $result_arr = mysqli_fetch_array($res);
         }
     }
+}
+
+function moveTo($page){
+	header("Location: http://".$host.$uri."/".$page);
 }
 
 
