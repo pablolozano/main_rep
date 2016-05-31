@@ -1,6 +1,7 @@
 <?php
-      include('main_header.php');
-      include('session_check.php');
+      require('main_header.php');
+      require('session_check.php');
+      require('function.php');
 ?>
   <body>
     <!-- Navbar -->
@@ -8,9 +9,9 @@
       <li class="w3-opennav w3-right w3-hide-large">
         <a class="w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
       </li>
-      <li><a href="#" class="w3-theme-l1">Logo</a></li>
-      <li class="w3-hide-small"><a href="#" class="w3-hover-white">About</a></li>
-      <li class="w3-hide-small"><a href="#" class="w3-hover-white">News</a></li>
+	  <li><a href="http://<?php echo hosturi(); ?>/home.php" class="w3-hover-white">Chat</a></li>
+      <li><a href="http://<?php echo hosturi(); ?>/system_log.php" class="w3-hover-white">System Log</a></li>
+      <li><a href="http://<?php echo hosturi(); ?>/logout.php" class="w3-hover-white">Logout</a></li>
     </ul>
 
     <!-- Sidenav -->
@@ -18,9 +19,9 @@
       <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="close menu">
         <i class="fa fa-remove"></i>
       </a>
-      <h4><b>Menu</b></h4>
-      <a href="#" class="w3-hover-black">Link</a>
-      <a href="http://localhost/thesis/logout.php" class="w3-hover-black">Logout</a>
+      <h4><b>Users</b></h4>
+      <div class="user-list">
+      </div>
     </nav>
 
     <!-- Overlay effect when opening sidenav on small screens -->
@@ -33,13 +34,12 @@
       </div>
       <div class="w3-row  w3-padding-jumbo w3-theme-l2">
 
-            <div id="chatbox" class="w3-container w3-white"  style="height:600px;">
+            <div id="chatbox" class="w3-container w3-white"  style="height:300px;">
               <?php
                 if(file_exists("log.html") && filesize("log.html") > 0){
                     $handle = fopen("log.html", "r");
                     $contents = fread($handle, filesize("log.html"));
                     fclose($handle);
-
                     echo $contents;
                 }
               ?>
@@ -60,7 +60,7 @@
             $.ajax({
               type: "POST",
               url: "ajax/post.php",
-              data: form.serialize(),
+              data: form.serialize()
             }).done(function(data) {
               $("#usermsg").val('');
             }).fail(function(data) {
@@ -69,35 +69,41 @@
           });
 
           //Load the file containing the chat log
-          function loadLog(){
-        		var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20; //Scroll height before the request
-        		$.ajax({
-        			url: "log.html",
-        			cache: false,
-        			success: function(html){
-        				$("#chatbox").html(html); //Insert chat log into the #chatbox div
+            function loadLog(){
+                var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20; //Scroll height before the request
+                $.ajax({
+                    url: "log.html",
+                    cache: false,
+                    success: function(html){
+                        $("#chatbox").html(html); //Insert chat log into the #chatbox div
 
-        				//Auto-scroll
-        				var newscrollHeight = $("#chatbox").attr("scrollHeight") - 20; //Scroll height after the request
-        				if(newscrollHeight > oldscrollHeight){
-        					$("#chatbox").animate({ scrollTop: newscrollHeight }, 'normal'); //Autoscroll to bottom of div
-        				}
-        		  	},
-        		});
-      	   }
+                        //Auto-scroll
+                        var newscrollHeight = $("#chatbox").attr("scrollHeight") - 20; //Scroll height after the request
+                        if(newscrollHeight > oldscrollHeight){
+                                $("#chatbox").animate({ scrollTop: newscrollHeight }, 'normal'); //Autoscroll to bottom of div
+                        }
+                    }
+                });
+            }
+        
+            function loadUser(){
+                $(".user-list").empty();
+                <?php $usrList = updateUsers(); 
+                    foreach($usrList as $ul){	?>
+						$(".user-list").append("<a href='#' class='w3-hover-black'>a</a>");
+                <?php } 
+                updateCurrentUser($_SESSION['username']);?>
+            }
 
-           setInterval (loadLog, 2500);
-
+            setInterval (loadLog, 2500);
+            setInterval (loadUser, 2500);
+            loadUser();
         });
       </script>
 
       <footer id="myFooter">
         <div class="w3-container w3-theme-l2 w3-padding-32">
           <h4>Footer</h4>
-        </div>
-
-        <div class="w3-container w3-theme-l1">
-          <p>Powered by <a href="http://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
         </div>
       </footer>
     <!-- END MAIN -->

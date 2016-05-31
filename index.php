@@ -20,7 +20,7 @@
 <?php if(isset($_GET['login'])){
         if($_GET['login'] == 'blocked'){?>
         <footer class="w3-container w3-black">
-          <h5>Ha sido bloqueado, espere [inserta tiempo aqui] para volver a intentar.</h5>
+          <h5>Ha sido bloqueado, espere unos minutos para volver a intentar.</h5>
         </footer>
         <script>
           $(document).ready(function(){
@@ -41,28 +41,3 @@
     </div>
   </body>
 </html>
-<!--
-
-<div class="w3-half w3-teal w3-container" style="height:600px">
-    <div class="w3-padding-64 w3-padding-xlarge w3-center">
-      <h1>Contact</h1>
-      <p class="w3-opacity">GET IN TOUCH</p>
-      <form class="w3-container w3-card-2 w3-padding-32 w3-white">
-        <div class="w3-group">
-          <label>Name</label>
-          <input class="w3-input" style="width:100%;" type="text" required>
-        </div>
-        <div class="w3-group">
-          <label>Name</label>
-          <input class="w3-input" style="width:100%;" type="text" required>
-        </div>
-        <div class="w3-group">
-          <label>Subject</label>
-          <input class="w3-input" style="width:100%;" type="text" required>
-        </div>
-        <button type="button" class="w3-btn">Send</button>
-      </form>
-    </div>
-  </div>
-
--->

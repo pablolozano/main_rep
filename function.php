@@ -1,11 +1,7 @@
 <?php
 
-/*function checkBypass(){
-	$byPassIpLog = false;
-}*/
-
-$byPassIpLog = false;
-$idConn = mysqli_connect('localhost','root','');
+/*$byPassIpLog = false;
+$idConn = mysqli_connect('localhost','root','');*/
 function getClientIp(){
 	if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)){
 		$IParray=array_values(array_filter(explode(',',$_SERVER['HTTP_X_FORWARDED_FOR'])));
@@ -18,12 +14,14 @@ function getClientIp(){
 	return '';
 }
 
-function query($qStr){
+/*function query($qStr){
 	$result = mysqli_query($idConn,$qStr);
 	return  mysqli_fetch_array($result);
-}
+}*/
 
 function saveIp($type,$usr,$ip){
+	$idConn = mysqli_connect('localhost','root','');
+    $bd = mysqli_select_db($idConn,'tesis');
 	switch($type){
 		case 'notFound':
 			if(!$byPassIpLog){
@@ -43,6 +41,43 @@ function saveIp($type,$usr,$ip){
 			break;
 	}
 }
+
+function updateUsers(){
+    $idConn = mysqli_connect('localhost','root','');
+    $bd = mysqli_select_db($idConn,'tesis');
+    $query = 'SELECT username, UNIX_TIMESTAMP(fecha) as time FROM login_session WHERE status = "ON"';
+    $res = mysqli_query($idConn,$query);
+    $result_arr = mysqli_fetch_array($res);
+    foreach($result_arr as $ra){
+        if((time() - $ra['time']) > 1440 ){
+            $update = 'UPDATE login_session SET status = "OFF" WHERE username = "'.$ra['username'].'"';
+            $res = mysqli_query($idConn,$query);
+            $result_arr = mysqli_fetch_array($res);
+        }
+    }
+    $query = 'SELECT username FROM login_session WHERE status = "ON"';
+    $res = mysqli_query($idConn,$query);    
+    return mysqli_fetch_array($res);
+}
+
+function updateCurrentUser($usrN,$type){
+	$idConn = mysqli_connect('localhost','root','');
+    $bd = mysqli_select_db($idConn,'tesis');
+	$select = 'UPDATE login_session SET status = "'.$type.'"  WHERE username = "'.$usrN.'"';
+	$result = mysqli_query($idConn,$select);
+}
+
+function hosturi(){
+	$host  = $_SERVER['HTTP_HOST'];
+	$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+	return $host.$uri;
+}
+
+function moveTo($page){
+	header("Location: http://".hosturi()."/".$page);
+}
+
+
 
 
 ?>
