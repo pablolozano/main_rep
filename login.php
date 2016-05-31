@@ -1,6 +1,8 @@
 <html>
   <head>
 <?php
+$idConn = mysqli_connect('localhost','root','');
+$bd = mysqli_select_db($idConn,'tesis');
 require('function.php');
 if(isset($_POST['entrar'])){
 	$username = mysql_real_escape_string($_POST['username']);
@@ -14,10 +16,9 @@ if(isset($_POST['entrar'])){
 		$query = 'SELECT UNIX_TIMESTAMP(fecha) as time FROM login_status WHERE ipAdd = "'.$ipAdd.'" ORDER BY UNIX_TIMESTAMP(fecha) DESC LIMIT 10';
 		$res = mysqli_query($idConn,$query);
 		$rs = mysqli_fetch_array($res);
-		print_r($rs.'second');
 		if($rs){
 			if((time() - $rs['time']) > 600){
-				moveTo('home.php?login=wait'. (600 - (time() - $resultado['time'])));
+				moveTo('home.php?login=wait'. (600 - (time() - $rs['time'])));
 			}
 		}
 		$query = 'SELECT * FROM usuarios WHERE username = "'.$username.'"';
@@ -56,10 +57,17 @@ if(isset($_POST['entrar'])){
 				//saveIp('goodPass',$username,$ipAdd);
 				$query = 'DELETE FROM login_status where username = "'.$username.'"';
 				mysqli_query($idConn,$query);
+				$query = 'SELECT * from login_session WHERE username = "'.$username.'"';
+				$res = mysqli_query($idConn,$query);
+				if(!$res){
+					$query = 'INSERT INTO login_session (username,status,ipAdd) values("'.$username.'","ON","'.$ipAdd.'")';
+					$res = mysqli_query($idConn,$query);
+				}else{
+					updateCurrentUser($username,'ON');
+				}
 				session_start();
 				$_SESSION['username'] = $username;
 				$_SESSION['ip'] = $ipAdd;
-				updateCurrentUser($username);
 				moveTo('home.php');
 			}
 		}

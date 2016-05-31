@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: May 30, 2016 at 08:47 PM
--- Server version: 5.5.25a
--- PHP Version: 5.4.4
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 31-05-2016 a las 17:44:08
+-- Versión del servidor: 5.5.27
+-- Versión de PHP: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,26 +17,34 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `tesis`
+-- Base de datos: `tesis`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login_session`
+-- Estructura de tabla para la tabla `login_session`
 --
 
 CREATE TABLE IF NOT EXISTS `login_session` (
   `username` varchar(60) NOT NULL,
   `status` varchar(6) NOT NULL DEFAULT 'OFF',
   `ipAdd` varchar(60) NOT NULL,
+  `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `login_session`
+--
+
+INSERT INTO `login_session` (`username`, `status`, `ipAdd`, `log_time`) VALUES
+('admin', '', ':::1', '2016-05-31 15:24:19');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login_status`
+-- Estructura de tabla para la tabla `login_status`
 --
 
 CREATE TABLE IF NOT EXISTS `login_status` (
@@ -49,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `login_status` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `login_status`
+-- Volcado de datos para la tabla `login_status`
 --
 
 INSERT INTO `login_status` (`id`, `username`, `ipAdd`, `fecha`, `type`) VALUES
@@ -58,7 +66,7 @@ INSERT INTO `login_status` (`id`, `username`, `ipAdd`, `fecha`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
@@ -68,11 +76,12 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `usuarios`
+-- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`username`, `password`) VALUES
-('admin', 'root');
+('admin', 'root'),
+('root', 'admin');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

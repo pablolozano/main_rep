@@ -9,8 +9,9 @@
       <li class="w3-opennav w3-right w3-hide-large">
         <a class="w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
       </li>
-      <li><a href="http://<?php echo $host.$uri ?>/system_log.php"" class="w3-theme-l1">System Log</a></li>
-      <li><a href="http://<?php echo $host.$uri ?>/logout.php" class="w3-hover-white">Logout</a></li>
+	  <li><a href="http://<?php echo hosturi(); ?>/home.php" class="w3-hover-white">Chat</a></li>
+      <li><a href="http://<?php echo hosturi(); ?>/system_log.php" class="w3-hover-white">System Log</a></li>
+      <li><a href="http://<?php echo hosturi(); ?>/logout.php" class="w3-hover-white">Logout</a></li>
     </ul>
 
     <!-- Sidenav -->
@@ -88,15 +89,14 @@
             function loadUser(){
                 $(".user-list").empty();
                 <?php $usrList = updateUsers(); 
-                    foreach($usrList as $ul){
-                ?>
-                $(".user-list").append("<a href='#' class='w3-hover-black'><?php echo $ul['username']; ?></a>");
+                    foreach($usrList as $ul){	?>
+						$(".user-list").append("<a href='#' class='w3-hover-black'>a</a>");
                 <?php } 
                 updateCurrentUser($_SESSION['username']);?>
             }
 
             setInterval (loadLog, 2500);
-            setInterval (loadUser, 60000);
+            setInterval (loadUser, 2500);
             loadUser();
         });
       </script>
