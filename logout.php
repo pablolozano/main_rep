@@ -1,6 +1,8 @@
 <?php
+	require('function.php');
   session_start();
+  updateCurrentUser($_SESSION['username'],'OFF');
   session_destroy();
-  header('Location: http://localhost/thesis/index.php');
+  moveTo('index.php');
 
 ?>
