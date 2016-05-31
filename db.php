@@ -13,12 +13,14 @@ if ( !class_exists( 'DB' ) ) {
 		public function query($query) {
 			$db = $this->connect();
 			$result = $db->query($query);
-			
-			while ( $row = $result->fetch_object() ) {
-				$results[] = $row;
+			if($result){
+				while ( $row = $result->fetch_object() ) {
+					$results[] = $row;
+				}			
+				return $results;
+			}else{
+				return false;
 			}
-			
-			return $results;
 		}
 		public function insert($table, $data, $format) {
 			// Check for $table or $data not set

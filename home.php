@@ -88,16 +88,15 @@
         
             function loadUser(){
                 $(".user-list").empty();
-                <?php $usrList = updateUsers(); 
+                <?php $usrList = updateUsers();
                     foreach($usrList as $ul){	?>
-						$(".user-list").append("<a href='#' class='w3-hover-black'>a</a>");
+						$(".user-list").append("<a href='#' class='w3-hover-black'>".$ul['username']."</a>");
                 <?php } 
                 updateCurrentUser($_SESSION['username']);?>
             }
 
             setInterval (loadLog, 2500);
             setInterval (loadUser, 2500);
-            loadUser();
         });
       </script>
 

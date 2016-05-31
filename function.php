@@ -14,57 +14,39 @@ function getClientIp(){
 	return '';
 }
 
-/*function query($qStr){
-	$result = mysqli_query($idConn,$qStr);
-	return  mysqli_fetch_array($result);
-}*/
-
 function saveIp($type,$usr,$ip){
-	$idConn = mysqli_connect('localhost','root','');
-    $bd = mysqli_select_db($idConn,'tesis');
+	$db = new DB('root', '', 'tesis');
 	switch($type){
 		case 'notFound':
 			if(!$byPassIpLog){
-				$query = 'INSERT INTO login_status values(NULL,"'.$usr.'","'.$ip.'","'.date("Y-m-d H:i:s").'","Not Found")';
-				mysqli_query($idConn,$query);
+				$db->query('INSERT INTO login_status values(NULL,"'.$usr.'","'.$ip.'","'.date("Y-m-d H:i:s").'","Not Found")');
 			}
 			break;
 		case 'wrongPass':
 			if(!$byPassIpLog){
-				$query = 'INSERT INTO login_status values(NULL,"'.$usr.'","'.$ip.'","'.date("Y-m-d H:i:s").'","Wrong Password")';
-				mysqli_query($idConn,$query);
+				$db->query('INSERT INTO login_status values(NULL,"'.$usr.'","'.$ip.'","'.date("Y-m-d H:i:s").'","Wrong Password")');
 			}
 			break;
 		case 'goodPass':
-			$query = 'DELETE FROM login_status where username = "'.$usr.'"';
-			mysqli_query($idConn,$query);
+			$db->query('DELETE FROM login_status where username = "'.$usr.'"');
 			break;
 	}
 }
 
 function updateUsers(){
-    $idConn = mysqli_connect('localhost','root','');
-    $bd = mysqli_select_db($idConn,'tesis');
-    $query = 'SELECT username, UNIX_TIMESTAMP(fecha) as time FROM login_session WHERE status = "ON"';
-    $res = mysqli_query($idConn,$query);
-    $result_arr = mysqli_fetch_array($res);
+    $db = new DB('root', '', 'tesis');
+    $result_arr = $db->query('SELECT username, UNIX_TIMESTAMP(fecha) as time FROM login_session WHERE status = "ON"');
     foreach($result_arr as $ra){
         if((time() - $ra['time']) > 1440 ){
-            $update = 'UPDATE login_session SET status = "OFF" WHERE username = "'.$ra['username'].'"';
-            $res = mysqli_query($idConn,$query);
-            $result_arr = mysqli_fetch_array($res);
+            $db->query('UPDATE login_session SET status = "OFF" WHERE username = "'.$ra['username'].'"');
         }
     }
-    $query = 'SELECT username FROM login_session WHERE status = "ON"';
-    $res = mysqli_query($idConn,$query);    
-    return mysqli_fetch_array($res);
+    return $db->query('SELECT username FROM login_session WHERE status = "ON"');
 }
 
 function updateCurrentUser($usrN,$type){
-	$idConn = mysqli_connect('localhost','root','');
-    $bd = mysqli_select_db($idConn,'tesis');
-	$select = 'UPDATE login_session SET status = "'.$type.'"  WHERE username = "'.$usrN.'"';
-	$result = mysqli_query($idConn,$select);
+	$db = new DB('root', '', 'tesis');
+    $db->query('UPDATE login_session SET status = "'.$type.'"  WHERE username = "'.$usrN.'"');
 }
 
 function hosturi(){
