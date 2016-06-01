@@ -33,16 +33,19 @@ function saveIp($type,$usr,$ip){
 	}
 }
 
-function updateUsers(){
+/*function updateUsers(){
     $db = new DB('root', '', 'tesis');
-    $result_arr = $db->query('SELECT username, UNIX_TIMESTAMP(fecha) as time FROM login_session WHERE status = "ON"');
+    $result_arr = $db->select('SELECT username, UNIX_TIMESTAMP(log_time) as time FROM login_session WHERE status = "ON"');
+	if(!$result_arr){
+		return false;
+	}	
     foreach($result_arr as $ra){
         if((time() - $ra['time']) > 1440 ){
             $db->query('UPDATE login_session SET status = "OFF" WHERE username = "'.$ra['username'].'"');
         }
     }
-    return $db->query('SELECT username FROM login_session WHERE status = "ON"');
-}
+    return $db->select('SELECT username FROM login_session WHERE status = "ON"');
+}*/
 
 function updateCurrentUser($usrN,$type){
 	$db = new DB('root', '', 'tesis');

@@ -67,6 +67,11 @@
               alert(data);
             });
           });
+		  
+		  $('#submitmsg').click(function(){
+			  $(".user-single").remove();
+			  loadLog();
+		  });
 
           //Load the file containing the chat log
             function loadLog(){
@@ -87,16 +92,27 @@
             }
         
             function loadUser(){
-                $(".user-list").empty();
-                <?php $usrList = updateUsers();
-                    foreach($usrList as $ul){	?>
-						$(".user-list").append("<a href='#' class='w3-hover-black'>".$ul['username']."</a>");
-                <?php } 
-                updateCurrentUser($_SESSION['username']);?>
+				$.ajax({
+                    url: "ajax/update_Users.php",
+                    cache: false,
+                    success: function(usr){
+						$(".user-single").remove();
+						var myUsr = usr.split('-');
+						for (index = 0; index < myUsr.length; ++index) {
+							if(myUsr[index] != ''){
+								$(".user-list").append("<a href='#' class='w3-hover-black user-single'>"+myUsr[index]+"</a>");
+							}
+						}
+                    },
+					error: function(e){
+						$(".user-list").append("<a href='#' class='w3-hover-black user-single'>Error cargando usuarios</a>");
+					}
+                });				
+				<?php	updateCurrentUser($_SESSION['username'],'ON');?>
             }
-
-            setInterval (loadLog, 2500);
-            setInterval (loadUser, 2500);
+			
+            var myVar1 = setInterval (loadLog, 1000);
+            var myVar2 = setInterval (loadUser, 5000);
         });
       </script>
 

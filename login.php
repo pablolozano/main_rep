@@ -14,17 +14,17 @@ if(isset($_POST['entrar'])){
 			moveTo('home.php?login=wait'. (600 - (time() - $rs['time'])));
 		}
 	}*/
-	$rs = $db->query('SELECT * FROM usuarios WHERE username = "'.$username.'"');
+	$rs = $db->select('SELECT * FROM usuarios WHERE username = "'.$username.'"');
 	if(!$rs){
 		  /*---TRIGGERALARMS---*/
 		$db->query('INSERT INTO login_status values(NULL,"'.$username.'","'.$ipAdd.'","'.date("Y-m-d H:i:s").'","Not Found")');
 		moveTo('index.php?login=noUser');
 	}else{
-		if($rs[0]->password != $password){
+		if($rs[0]['password'] != $password){
 			/*---TRIGGERALARMS---*/
-			$db->query('SELECT count(*) as total FROM login_status WHERE username = "'.$username.'" ORDER BY UNIX_TIMESTAMP(fecha) DESC LIMIT 10');
+			$db->select('SELECT count(*) as total FROM login_status WHERE username = "'.$username.'" ORDER BY UNIX_TIMESTAMP(fecha) DESC LIMIT 10');
 			if($rs){
-				if($rs['total'] < 5){
+				if($rs[0]['total'] < 5){
 				  $db->query('INSERT INTO login_status values(NULL,"'.$username.'","'.$ipAdd.'","'.date("Y-m-d H:i:s").'","Wrong Password")');
 				  moveTo('index.php?login=wrongPass');
 				}else{
@@ -37,7 +37,7 @@ if(isset($_POST['entrar'])){
 		}else{
 			/*---success check like ip and stuff---*/
 			$db->query('DELETE FROM login_status where username = "'.$username.'"');
-			$res = $db->query('SELECT * from login_session WHERE username = "'.$username.'"');
+			$res = $db->select('SELECT * from login_session WHERE username = "'.$username.'"');
 			if(!$res){
 				$db->query('INSERT INTO login_session (username,status,ipAdd) values("'.$username.'","ON","'.$ipAdd.'")');
 			}else{
