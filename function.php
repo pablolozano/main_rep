@@ -1,11 +1,7 @@
 <?php
 
-/*function checkBypass(){
-	$byPassIpLog = false;
-}*/
+include('db.php');
 
-$byPassIpLog = false;
-$idConn = mysqli_connect('localhost','root','');
 function getClientIp(){
 	if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)){
 		$IParray=array_values(array_filter(explode(',',$_SERVER['HTTP_X_FORWARDED_FOR'])));
@@ -18,31 +14,55 @@ function getClientIp(){
 	return '';
 }
 
-function query($qStr){
-	$result = mysqli_query($idConn,$qStr);
-	return  mysqli_fetch_array($result);
-}
-
 function saveIp($type,$usr,$ip){
+	$db = new DB('root', '', 'tesis');
 	switch($type){
 		case 'notFound':
 			if(!$byPassIpLog){
-				$query = 'INSERT INTO login_status values(NULL,"'.$usr.'","'.$ip.'","'.date("Y-m-d H:i:s").'","Not Found")';
-				mysqli_query($idConn,$query);
+				$db->query('INSERT INTO login_status values(NULL,"'.$usr.'","'.$ip.'","'.date("Y-m-d H:i:s").'","Not Found")');
 			}
 			break;
 		case 'wrongPass':
 			if(!$byPassIpLog){
-				$query = 'INSERT INTO login_status values(NULL,"'.$usr.'","'.$ip.'","'.date("Y-m-d H:i:s").'","Wrong Password")';
-				mysqli_query($idConn,$query);
+				$db->query('INSERT INTO login_status values(NULL,"'.$usr.'","'.$ip.'","'.date("Y-m-d H:i:s").'","Wrong Password")');
 			}
 			break;
 		case 'goodPass':
-			$query = 'DELETE FROM login_status where username = "'.$usr.'"';
-			mysqli_query($idConn,$query);
+			$db->query('DELETE FROM login_status where username = "'.$usr.'"');
 			break;
 	}
 }
+
+/*function updateUsers(){
+    $db = new DB('root', '', 'tesis');
+    $result_arr = $db->select('SELECT username, UNIX_TIMESTAMP(log_time) as time FROM login_session WHERE status = "ON"');
+	if(!$result_arr){
+		return false;
+	}	
+    foreach($result_arr as $ra){
+        if((time() - $ra['time']) > 1440 ){
+            $db->query('UPDATE login_session SET status = "OFF" WHERE username = "'.$ra['username'].'"');
+        }
+    }
+    return $db->select('SELECT username FROM login_session WHERE status = "ON"');
+}*/
+
+function updateCurrentUser($usrN,$type){
+	$db = new DB('root', '', 'tesis');
+    $db->query('UPDATE login_session SET status = "'.$type.'"  WHERE username = "'.$usrN.'"');
+}
+
+function hosturi(){
+	$host  = $_SERVER['HTTP_HOST'];
+	$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+	return $host.$uri;
+}
+
+function moveTo($page){
+	header("Location: http://".hosturi()."/".$page);
+}
+
+
 
 
 ?>
