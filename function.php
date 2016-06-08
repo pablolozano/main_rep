@@ -1,6 +1,6 @@
 <?php
 
-include('db.php');
+require('db.php');
 
 function getClientIp(){
 	if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)){
@@ -62,6 +62,20 @@ function moveTo($page){
 	header("Location: http://".hosturi()."/".$page);
 }
 
+function checkPass($usr){
+	$db = new DB('root', '', 'tesis');
+	$rs = $db->select('SELECT estatus, UNIX_TIMESTAMP(pass_time) as time FROM usuarios WHERE username = "'.$usr.'"');
+	$time = $rs[0]['time'];
+	$estatus = $rs[0]['estatus'];
+	if($estatus == 1){
+		if($time == NULL){
+			moveTo('new_pass.php');			
+		}
+		if((time() - $time) > 1440){
+			moveTo('new_pass.php');
+		}
+	}
+}
 
 
 

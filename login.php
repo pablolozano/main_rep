@@ -1,5 +1,3 @@
-<html>
-  <head>
 <?php
 include('function.php');
 $db = new DB('root', '', 'tesis');
@@ -22,9 +20,9 @@ if(isset($_POST['entrar'])){
 	}else{
 		if($rs[0]['password'] != $password){
 			/*---TRIGGERALARMS---*/
-			$db->select('SELECT count(*) as total FROM login_status WHERE username = "'.$username.'" ORDER BY UNIX_TIMESTAMP(fecha) DESC LIMIT 10');
-			if($rs){
-				if($rs[0]['total'] < 5){
+			$res = $db->select('SELECT count(*) as total FROM login_status WHERE username = "'.$username.'" ORDER BY UNIX_TIMESTAMP(fecha) DESC LIMIT 10');
+			if($res){
+				if($res[0]['total'] < 5){
 				  $db->query('INSERT INTO login_status values(NULL,"'.$username.'","'.$ipAdd.'","'.date("Y-m-d H:i:s").'","Wrong Password")');
 				  moveTo('index.php?login=wrongPass');
 				}else{
@@ -35,6 +33,9 @@ if(isset($_POST['entrar'])){
 				moveTo('index.php?login=wrongPass');
 			}
 		}else{
+			if($rs[0]['pass_time'] == NULL && $rs[0]['estatus'] != 0){
+				$db->query('UPDATE `usuarios` SET `pass_time`="'.date("Y-m-d H:i:s").'" where username = "'.$username.'"');
+			}
 			/*---success check like ip and stuff---*/
 			$db->query('DELETE FROM login_status where username = "'.$username.'"');
 			$res = $db->select('SELECT * from login_session WHERE username = "'.$username.'"');
@@ -51,5 +52,3 @@ if(isset($_POST['entrar'])){
 	}	
 }
 ?>
-  </head>
-</html>
