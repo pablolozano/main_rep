@@ -6,30 +6,38 @@ if(isset($_POST['entrar'])){
 	$password = mysql_real_escape_string($_POST['password']);
 	$ipAdd = getClientIp();
 	$rs = $db->select('SELECT * FROM usuarios WHERE username = "'.$username.'"');
+	$estatus = $rs[0]['estatus'];
+	$dbPass = $rs[0]['password'];
+	$pass_time = $rs[0]['pass_time'];
+	$normalIP = $res[0]['normalIP'];
 	if(!$rs){
 		  /*---TRIGGERALARMS---*/
 		$db->query('INSERT INTO login_status values(NULL,"'.$username.'","'.$ipAdd.'","'.date("Y-m-d H:i:s").'","Not Found")');
 		moveTo('index.php?login=noUser');
 	}else{
-		if($rs[0]['password'] != $password){
+		if($dbPass != $password){
 			/*---TRIGGERALARMS---*/
-			$res = $db->select('SELECT count(*) as total FROM login_status WHERE username = "'.$username.'" ORDER BY UNIX_TIMESTAMP(fecha) DESC LIMIT 10');
+			$res = $db->select('SELECT count(*) as total, UNIX_TIMESTAMP(fecha) as time FROM login_status WHERE username = "'.$username.'" ORDER BY UNIX_TIMESTAMP(fecha) DESC LIMIT 10');
 			if($res){
 				if($res[0]['total'] < 5){
 				  $db->query('INSERT INTO login_status values(NULL,"'.$username.'","'.$ipAdd.'","'.date("Y-m-d H:i:s").'","Wrong Password")');
 				  moveTo('index.php?login=wrongPass');
 				}else{
-				  moveTo('index.php?login=blocked');
+				  if((time() - $res[0]['time']) < 120){
+					moveTo('index.php?login=blocked');
+				  }else{
+				    moveTo('index.php?login=wrongPass');
+				  }
 				}
 			}else{
 				$db->query('INSERT INTO login_status values(NULL,"'.$username.'","'.$ipAdd.'","'.date("Y-m-d H:i:s").'","Wrong Password")');
 				moveTo('index.php?login=wrongPass');
 			}
 		}else{
-            if($rs[0]['estatus'] == 2){
-                moveTo('index.php?login=breach');
+            if($estatus == 2){
+                moveTo('index.php?login=b');
             }
-			if($rs[0]['pass_time'] == NULL && $rs[0]['estatus'] != 0){
+			if($pass_time == NULL || $estatus != 0){
 				$db->query('UPDATE `usuarios` SET `pass_time`="'.date("Y-m-d H:i:s").'" where username = "'.$username.'"');
 			}
 			/*---success check like ip and stuff---*/

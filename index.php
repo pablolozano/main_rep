@@ -36,7 +36,7 @@ if($_GET['login'] == 'blocked'){?>
         <footer class="w3-container w3-black">
         <h5>Usuario inexistente.</h5>
         </footer>
-<?php   }elseif ($_GET['login'] == 'breach') {   ?>
+<?php  }elseif ($_GET['login'] == 'b') {   ?>
         <footer class="w3-container w3-black">
         <h5>Ataque detectado, su cuenta ha sido bloqueada</h5>
         </footer>

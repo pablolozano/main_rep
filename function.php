@@ -79,7 +79,7 @@ function checkPass($usr){
 		if($time == NULL){
 			moveTo('new_pass.php');
 		}
-		if((time() - $time) > 1860){
+		if((time() - $time) > 120){
 			moveTo('new_pass.php');
 		}
 	}
@@ -87,7 +87,7 @@ function checkPass($usr){
 
 function checkIp($usr){
     $db = new DB('root', '', 'tesis');
-	$rs = $db->select('SELECT normalIP FROM usuarios WHERE username = "'.$usr.'"');
+	$rs = $db->select('SELECT normalIP, estatus FROM usuarios WHERE username = "'.$usr.'"');
 	$ip = getClientIp();
 	if($ip != $rs[0]['normalIP']){
 		$db->query('UPDATE usuarios SET estatus = 2 WHERE username = "'.$usr.'"');
@@ -95,6 +95,11 @@ function checkIp($usr){
         fwrite($fp, "<div class='msgln'>(".date("g:i A").") <b>SERVER</b>: CHAT BORRADO <br></div>");
         fclose($fp);
         moveTo('logout.php?s=breach');
+	}
+	if($rs[0]['estatus'] == 2){
+		updateCurrentUser($_SESSION['username'],'OFF',$_SESSION['ip']);
+		session_destroy();
+		moveTo('index.php?login=b');
 	}
 }
 

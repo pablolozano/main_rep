@@ -135,7 +135,7 @@
                 });
             }
 
-            function moveToJS(s){
+            function movetoJS(s){
                 window.location.replace("http://<?php echo hosturi(); ?>/"+s);
             }
 

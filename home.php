@@ -124,9 +124,11 @@
                                 movetoJS('new_pass.php');
                             }else if(usr == 'logout'){
                                 movetoJS('logout.php');
+                            }else if(usr == 'logout.php?s=breach'){
+                                movetoJS('logout.php?s=breach');
                             }else{
-                                $("#foot-cont").html(usr);
-                            }
+								$("#foot-cont").html(usr);
+							}
                         },
                         error: function(e){
                             if(e == 'logout'){
@@ -137,7 +139,7 @@
                     });
                 }
 
-                function moveToJS(str){
+                function movetoJS(str){
                     window.location.replace("http://<?php echo hosturi(); ?>/"+str);
                 }
 
