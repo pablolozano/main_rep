@@ -4,17 +4,21 @@
         <div class="w3-container w3-black">
             <h2>Login</h2>
         </div>
-        <form class="w3-container" method="post" action="login.php">
-            <p>
-                <label>Usuario</label>
-                <input class="w3-input" type="text" name="username" required>
-            </p>
+        <form class="w3-container" method="post" action="backend_pass.php">
             <p>
                 <label>Contrase&ntilde;a</label>
-                <input class="w3-input" type="password" name="password" required>
+                <input class="w3-input" type="password" name="oldPass" required>
             </p>
             <p>
-                <input class="w3-btn" type="submit" name="entrar" value="Entrar">
+                <label>Nueva contrase&ntilde;a</label>
+                <input class="w3-input" type="password" name="nuPass1" required>
+            </p>
+			<p>
+                <label>Confirmar contrase&ntilde;a</label>
+                <input class="w3-input" type="password" name="nuPass2" required>
+            </p>
+            <p>
+                <input class="w3-btn" type="submit" name="cambiar" value="Cambiar">
             </p>
         </form>
 <?php if(isset($_GET['login'])){
@@ -34,13 +38,13 @@ if($_GET['login'] == 'blocked'){?>
         </footer>
 <?php  }elseif ($_GET['login'] == 'noUser') {   ?>
         <footer class="w3-container w3-black">
-        <h5>Usuario inexistente.</h5>
+        <h5>Las contrase&ntilde;as no coinciden.</h5>
         </footer>
-<?php  }elseif ($_GET['login'] == 'b') {   ?>
+<?php   }elseif ($_GET['login'] == 'noUser2') {   ?>
         <footer class="w3-container w3-black">
-        <h5>Ataque detectado, su cuenta ha sido bloqueada</h5>
+        <h5>La contrase&ntilde;a nueva debe ser diferente a la anterior.</h5>
         </footer>
-<?php  }
+<?php   }
 } ?>
     </div>
 </body>

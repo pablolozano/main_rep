@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-05-2016 a las 17:44:08
--- Versión del servidor: 5.5.27
--- Versión de PHP: 5.4.7
+-- Tiempo de generaciÃ³n: 16-06-2016 a las 10:34:00
+-- VersiÃ³n del servidor: 5.5.27
+-- VersiÃ³n de PHP: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -39,7 +39,10 @@ CREATE TABLE IF NOT EXISTS `login_session` (
 --
 
 INSERT INTO `login_session` (`username`, `status`, `ipAdd`, `log_time`) VALUES
-('admin', '', ':::1', '2016-05-31 15:24:19');
+('admin', 'OFF', '::1', '2016-06-16 14:28:42'),
+('pc1', 'OFF', '::1', '2016-06-16 14:27:26'),
+('pc2', 'OFF', '::1', '2016-06-16 13:24:45'),
+('pc3', 'OFF', '::1', '2016-06-16 14:15:40');
 
 -- --------------------------------------------------------
 
@@ -54,14 +57,7 @@ CREATE TABLE IF NOT EXISTS `login_status` (
   `fecha` datetime NOT NULL,
   `type` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
-
---
--- Volcado de datos para la tabla `login_status`
---
-
-INSERT INTO `login_status` (`id`, `username`, `ipAdd`, `fecha`, `type`) VALUES
-(5, 'admon', '::1', '2016-05-19 04:06:35', 'Not Found');
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -72,6 +68,9 @@ INSERT INTO `login_status` (`id`, `username`, `ipAdd`, `fecha`, `type`) VALUES
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
+  `normalIP` varchar(45) NOT NULL,
+  `estatus` int(2) NOT NULL,
+  `pass_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -79,9 +78,13 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`username`, `password`) VALUES
-('admin', 'root'),
-('root', 'admin');
+INSERT INTO `usuarios` (`username`, `password`, `normalIP`, `estatus`, `pass_time`) VALUES
+('admin', 'root', '::1', 0, '2016-06-16 14:23:25'),
+('PC1', 'pc1234', '::1', 2, '2016-06-16 14:27:25'),
+('PC2', 'pc4321', '::1', 1, '2016-06-16 12:45:07'),
+('PC3', 'pc1234', '::1', 1, '2016-06-16 14:15:31'),
+('PC4', 'pc1234', '', 0, NULL),
+('root', 'admin', '', 0, NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

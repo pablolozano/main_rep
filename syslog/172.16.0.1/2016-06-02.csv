@@ -1,0 +1,53 @@
+6/2/2016 7:42 PM,Info,172.16.0.1,ttraff : traffic counter daemon successfully started
+6/2/2016 7:42 PM,Info,172.16.0.1,dnsmasq : dnsmasq daemon successfully stopped
+6/2/2016 7:42 PM,Info,172.16.0.1,dnsmasq : dnsmasq daemon successfully started
+6/2/2016 7:42 PM,Info,172.16.0.1,telnetd : telnet daemon successfully stopped
+6/2/2016 7:42 PM,Info,172.16.0.1,telnetd : telnet daemon successfully started
+6/2/2016 7:42 PM,Info,172.16.0.1,vpn modules : vpn modules successfully unloaded
+6/2/2016 7:42 PM,Info,172.16.0.1,vpn modules : vpn modules successfully unloaded
+6/2/2016 7:43 PM,Info,172.16.0.1,vpn modules : vpn modules successfully unloaded
+6/2/2016 7:43 PM,Info,172.16.0.1,klogd : klog daemon successfully stopped
+6/2/2016 7:43 PM,Info,172.16.0.1,syslogd : syslog daemon successfully stopped
+6/2/2016 7:43 PM,Notice,172.16.0.1,klogd started: BusyBox v1.13.4 (2009-07-22 07:57:33 CEST)
+6/2/2016 7:43 PM,Info,172.16.0.1,klogd : klog daemon successfully started
+6/2/2016 7:59 PM,Info,172.16.0.1,klogd : klog daemon successfully started
+6/2/2016 7:59 PM,Info,172.16.0.1,ttraff : traffic counter daemon successfully stopped
+6/2/2016 7:59 PM,Info,172.16.0.1,ttraff : traffic counter daemon successfully started
+6/2/2016 7:59 PM,Notice,172.16.0.1,klogd started: BusyBox v1.13.4 (2009-07-22 07:57:33 CEST)
+6/2/2016 7:59 PM,Info,172.16.0.1,dnsmasq : dnsmasq daemon successfully stopped
+6/2/2016 7:59 PM,Info,172.16.0.1,dnsmasq : dnsmasq daemon successfully started
+6/2/2016 7:59 PM,Info,172.16.0.1,telnetd : telnet daemon successfully stopped
+6/2/2016 7:59 PM,Info,172.16.0.1,telnetd : telnet daemon successfully started
+6/2/2016 7:59 PM,Notice,172.16.0.1,klogd started: BusyBox v1.13.4 (2009-07-22 07:57:33 CEST)
+6/2/2016 7:59 PM,Info,172.16.0.1,klogd : klog daemon successfully started
+6/2/2016 7:59 PM,Info,172.16.0.1,dnsmasq : dnsmasq daemon successfully started
+6/2/2016 8:00 PM,Info,172.16.0.1,vpn modules : vpn modules successfully unloaded
+6/2/2016 8:00 PM,Info,172.16.0.1,wland : WLAN daemon successfully started
+6/2/2016 8:00 PM,Info,172.16.0.1,cron : cron daemon successfully started
+6/2/2016 8:00 PM,Info,172.16.0.1,(CRON) STARTUP (fork ok)
+6/2/2016 8:00 PM,Info,172.16.0.1,(crontabs) ORPHAN (no passwd entry)
+6/2/2016 8:00 PM,Info,172.16.0.1,ttraff : traffic counter daemon successfully started
+6/2/2016 8:00 PM,Info,172.16.0.1,NAS : NAS lan (wl0 interface) successfully started
+6/2/2016 8:00 PM,Info,172.16.0.1,klogd : klog daemon successfully stopped
+6/2/2016 8:00 PM,Info,172.16.0.1,syslogd : syslog daemon successfully stopped
+6/2/2016 8:00 PM,Info,172.16.0.1,klogd : klog daemon successfully started
+6/2/2016 8:00 PM,Notice,172.16.0.1,klogd started: BusyBox v1.13.4 (2009-07-22 07:57:33 CEST)
+6/2/2016 8:01 PM,Info,172.16.0.1,process_monitor successfully started
+6/2/2016 8:01 PM,Error,172.16.0.1,Last update failed, we need to re-update after 30 seconds
+6/2/2016 8:01 PM,Debug,172.16.0.1,We need to re-update after 3600 seconds
+6/2/2016 8:05 PM,Info,172.16.0.1,NAS : NAS daemon successfully stopped
+6/2/2016 8:05 PM,Info,172.16.0.1,ttraff : traffic counter daemon successfully stopped
+6/2/2016 8:05 PM,Info,172.16.0.1,udhcpc : udhcp client process successfully stopped
+6/2/2016 8:05 PM,Info,172.16.0.1,interface deleted successfully
+6/2/2016 8:05 PM,Info,172.16.0.1,NAS : NAS lan (wl0 interface) successfully started
+6/2/2016 8:05 PM,Info,172.16.0.1,dnsmasq : dnsmasq daemon successfully stopped
+6/2/2016 8:05 PM,Info,172.16.0.1,dnsmasq : dnsmasq daemon successfully started
+6/2/2016 8:05 PM,Info,172.16.0.1,httpd : http daemon successfully stopped
+6/2/2016 8:05 PM,Info,172.16.0.1,NAS : NAS daemon successfully stopped
+6/2/2016 8:06 PM,Info,172.16.0.1,ttraff : traffic counter daemon successfully stopped
+6/2/2016 8:06 PM,Info,172.16.0.1,udhcpc : udhcp client process successfully stopped
+6/2/2016 8:06 PM,Info,172.16.0.1,interface deleted successfully
+6/2/2016 8:06 PM,Info,172.16.0.1,interface deleted successfully
+6/2/2016 8:06 PM,Info,172.16.0.1,dnsmasq : dnsmasq daemon successfully stopped
+6/2/2016 8:06 PM,Info,172.16.0.1,dnsmasq : dnsmasq daemon successfully started
+6/2/2016 8:06 PM,Info,172.16.0.1,httpd : http daemon successfully stopped
