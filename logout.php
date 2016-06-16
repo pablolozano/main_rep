@@ -1,8 +1,10 @@
 <?php
-  require('function.php');
-  session_start();
-  updateCurrentUser($_SESSION['username'],'OFF');
-  session_destroy();
-  moveTo('index.php');
+    require('function.php');
+    session_start();
+    if(isset($_SESSION['username']) || isset($_SESSION['ip'])){
+        updateCurrentUser($_SESSION['username'],'OFF',$_SESSION['ip']);
+    }
+    session_destroy();
+    moveTo('index.php');
 
 ?>
